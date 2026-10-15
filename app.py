@@ -1,5 +1,3 @@
-import os
-
 import streamlit as st
 from google import genai
 from google.genai import types
@@ -19,16 +17,12 @@ st.caption("UAdeO • Materia: Sistemas Inteligentes • Dra. Aiblis Susej Herre
 # ==============================================================================
 # 2. GESTIÓN SEGURA DE LA API KEY (LOCAL Y STREAMLIT CLOUD)
 # ==============================================================================
-api_key = os.environ.get("GOOGLE_API_KEY")
-if not api_key:
-    try:
-        api_key = st.secrets["GOOGLE_API_KEY"]
-    except Exception:
-        api_key = None
-
-if not api_key:
-    st.error("Falta configurar GOOGLE_API_KEY en el entorno o en los secretos de Streamlit.")
-    st.stop()
+try:
+    # Intenta leer la clave desde los secretos de Streamlit Cloud
+    api_key = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    # ⚠️ REEMPLAZA ESTA CADENA POR TU CLAVE REAL DE GOOGLE AI STUDIO PARA PRUEBAS LOCALES
+    api_key = "GEMINI_API_KEY"
 
 # ==============================================================================
 # 3. CONFIGURACIÓN DE PERSONALIDAD DEL BOT
